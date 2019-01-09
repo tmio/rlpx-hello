@@ -18,6 +18,7 @@ import java.io.BufferedWriter;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
+import java.security.Security;
 import java.util.Collections;
 
 import io.vertx.core.Vertx;
@@ -25,6 +26,7 @@ import net.consensys.cava.crypto.SECP256K1;
 import net.consensys.cava.rlpx.WireConnectionRepository;
 import net.consensys.cava.rlpx.vertx.VertxRLPxService;
 import net.consensys.cava.rlpx.wire.WireConnection;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.logl.Level;
 import org.logl.Logger;
 import org.logl.LoggerProvider;
@@ -33,6 +35,7 @@ import org.logl.logl.SimpleLogger;
 public class RLPxHello {
 
   public static void main(String[] args) {
+    Security.addProvider(new BouncyCastleProvider());
     Vertx vertx = Vertx.vertx();
     LoggerProvider loggerProvider = SimpleLogger.withLogLevel(Level.DEBUG).toPrintWriter(
         new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out, UTF_8))));
