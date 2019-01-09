@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id="rlpx-hello:test" external.linked.project.path="$MODULE_DIR$/../.." external.root.project.path="$MODULE_DIR$/../.." external.system.id="GRADLE" external.system.module.group="" external.system.module.type="sourceSet" external.system.module.version="0.1.0-dev" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_11">
+    <output-test url="file://$MODULE_DIR$/../../out/test/classes" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../src/test">
+      <sourceFolder url="file://$MODULE_DIR$/../../src/test/java" isTestSource="true" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="rlpx-hello.main" />
+    <orderEntry type="library" name="Gradle: org.logl:logl-logl:0.3.1" level="project" />
+    <orderEntry type="library" name="Gradle: net.consensys.cava:cava-rlpx:0.6.0-F3FB06-snapshot" level="project" />
+    <orderEntry type="library" name="Gradle: io.vertx:vertx-core:3.6.2" level="project" />
+    <orderEntry type="library" name="Gradle: net.consensys.cava:cava-crypto:0.6.0-F3FB06-snapshot" level="project" />
+    <orderEntry type="library" name="Gradle: net.consensys.cava:cava-rlp:0.6.0-F3FB06-snapshot" level="project" />
+    <orderEntry type="library" name="Gradle: net.consensys.cava:cava-units:0.6.0-F3FB06-snapshot" level="project" />
+    <orderEntry type="library" name="Gradle: net.consensys.cava:cava-bytes:0.6.0-F3FB06-snapshot" level="project" />
+    <orderEntry type="library" name="Gradle: net.consensys.cava:cava-concurrent:0.6.0-F3FB06-snapshot" level="project" />
+    <orderEntry type="library" name="Gradle: net.consensys.cava:cava-io:0.6.0-F3FB06-snapshot" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.guava:guava:27.0.1-jre" level="project" />
+    <orderEntry type="library" name="Gradle: org.logl:logl-api:0.3.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.xerial.snappy:snappy-java:1.1.7.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.bouncycastle:bcprov-jdk15on:1.60" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-codec-http2:4.1.30.Final" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-handler:4.1.30.Final" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-handler-proxy:4.1.30.Final" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-resolver-dns:4.1.30.Final" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-codec-http:4.1.30.Final" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-codec-socks:4.1.30.Final" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-codec-dns:4.1.30.Final" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-codec:4.1.30.Final" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-transport:4.1.30.Final" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-buffer:4.1.30.Final" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-resolver:4.1.30.Final" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-common:4.1.30.Final" level="project" />
+    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.9.7" level="project" />
+    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.9.7" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.jnr:jnr-ffi:2.1.9" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.guava:failureaccess:1.0.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.code.findbugs:jsr305:3.0.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.checkerframework:checker-qual:2.5.2" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.errorprone:error_prone_annotations:2.2.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.j2objc:j2objc-annotations:1.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.codehaus.mojo:animal-sniffer-annotations:1.17" level="project" />
+    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.9.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.jnr:jffi:1.2.17" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.jnr:jffi:native:1.2.17" level="project" />
+    <orderEntry type="library" name="Gradle: org.ow2.asm:asm-commons:5.0.3" level="project" />
+    <orderEntry type="library" name="Gradle: org.ow2.asm:asm-analysis:5.0.3" level="project" />
+    <orderEntry type="library" name="Gradle: org.ow2.asm:asm-util:5.0.3" level="project" />
+    <orderEntry type="library" name="Gradle: org.ow2.asm:asm-tree:5.0.3" level="project" />
+    <orderEntry type="library" name="Gradle: org.ow2.asm:asm:5.0.3" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.jnr:jnr-a64asm:1.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.jnr:jnr-x86asm:1.0.2" level="project" />
+  </component>
+  <component name="TestModuleProperties" production-module="rlpx-hello.main" />
+</module>
