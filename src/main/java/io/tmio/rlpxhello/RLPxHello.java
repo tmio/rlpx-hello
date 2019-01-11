@@ -22,9 +22,15 @@ import java.security.Security;
 import java.util.Collections;
 
 import io.vertx.core.Vertx;
+import net.consensys.cava.concurrent.AsyncCompletion;
+import net.consensys.cava.concurrent.CompletableAsyncCompletion;
 import net.consensys.cava.crypto.SECP256K1;
+import net.consensys.cava.rlpx.RLPxService;
 import net.consensys.cava.rlpx.WireConnectionRepository;
 import net.consensys.cava.rlpx.vertx.VertxRLPxService;
+import net.consensys.cava.rlpx.wire.SubProtocol;
+import net.consensys.cava.rlpx.wire.SubProtocolHandler;
+import net.consensys.cava.rlpx.wire.SubProtocolIdentifier;
 import net.consensys.cava.rlpx.wire.WireConnection;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.logl.Level;
@@ -36,37 +42,88 @@ public class RLPxHello {
 
   public static void main(String[] args) {
     Security.addProvider(new BouncyCastleProvider());
-    Vertx vertx = Vertx.vertx();
+
     LoggerProvider loggerProvider = SimpleLogger.withLogLevel(Level.DEBUG).toPrintWriter(
         new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out, UTF_8))));
     Logger errorLogger = loggerProvider.getLogger("err");
-    VertxRLPxService service = new VertxRLPxService(
-        vertx,
-        loggerProvider,
-        45000,
-        "0.0.0.0",
-        45000,
-        SECP256K1.KeyPair.random(),
-        Collections.emptyList(),
-        "RLPxHello 0.1.0");
-    try {
-      service.start().join();
-      service.connectTo(
-          SECP256K1.PublicKey.fromHexString(args[0]),
-          InetSocketAddress.createUnresolved(args[1], Integer.parseInt(args[2])));
-      Thread.sleep(5000);
-      WireConnectionRepository repo = service.repository();
-      Logger logger = loggerProvider.getLogger("rlpxhello");
-      for (WireConnection conn : repo.asIterable()) {
-        logger.debug("Connection {}", conn);
-      }
 
-    } catch (InterruptedException e) {
-      errorLogger.error(e.getMessage(), e);
-    } finally {
+    Vertx vertx = Vertx.vertx();
+    try {
+      SECP256K1.KeyPair ourKeyPair = SECP256K1.KeyPair.random();
+
+
+      VertxRLPxService service = new VertxRLPxService(
+          vertx,
+          loggerProvider,
+          45000,
+          "0.0.0.0",
+          45000,
+          ourKeyPair,
+          Collections.singletonList(new SubProtocol() {
+            @Override
+            public SubProtocolIdentifier id() {
+              return new SubProtocolIdentifier() {
+                @Override
+                public String name() {
+                  return "exp";
+                }
+
+                @Override
+                public String version() {
+                  return "1.0";
+                }
+              };
+            }
+
+            @Override
+            public boolean supports(SubProtocolIdentifier subProtocolIdentifier) {
+              return false;
+            }
+
+            @Override
+            public int versionRange(String version) {
+              return 0;
+            }
+
+            @Override
+            public SubProtocolHandler createHandler(RLPxService service) {
+              return null;
+            }
+          }),
+          "RLPxHello 0.1.0");
       try {
-        service.stop().join();
+        service.start().join();
+        service.connectTo(
+            SECP256K1.PublicKey.fromHexString(args[0]),
+            InetSocketAddress.createUnresolved(args[1], Integer.parseInt(args[2])));
+        Thread.sleep(5000);
+        WireConnectionRepository repo = service.repository();
+        Logger logger = loggerProvider.getLogger("rlpxhello");
+        for (WireConnection conn : repo.asIterable()) {
+          logger.debug("Connection {}", conn);
+        }
+
       } catch (InterruptedException e) {
+        errorLogger.error(e.getMessage(), e);
+      } finally {
+        try {
+          service.stop().join();
+        } catch (InterruptedException e) {
+          errorLogger.error(e.getMessage(), e);
+        }
+      }
+    } finally {
+      CompletableAsyncCompletion result = AsyncCompletion.incomplete();
+      vertx.close(handler -> {
+        if (handler.failed()) {
+          result.completeExceptionally(handler.cause());
+        } else {
+          result.complete();
+        }
+      });
+      try {
+        result.join();
+      } catch (Exception e) {
         errorLogger.error(e.getMessage(), e);
       }
     }
