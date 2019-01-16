@@ -26,12 +26,10 @@ import net.consensys.cava.concurrent.AsyncCompletion;
 import net.consensys.cava.concurrent.CompletableAsyncCompletion;
 import net.consensys.cava.crypto.SECP256K1;
 import net.consensys.cava.rlpx.RLPxService;
-import net.consensys.cava.rlpx.WireConnectionRepository;
 import net.consensys.cava.rlpx.vertx.VertxRLPxService;
 import net.consensys.cava.rlpx.wire.SubProtocol;
 import net.consensys.cava.rlpx.wire.SubProtocolHandler;
 import net.consensys.cava.rlpx.wire.SubProtocolIdentifier;
-import net.consensys.cava.rlpx.wire.WireConnection;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.logl.Level;
 import org.logl.Logger;
@@ -40,17 +38,42 @@ import org.logl.logl.SimpleLogger;
 
 public class RLPxHello {
 
+  private static void displayUsage(Logger logger) {
+    logger.info("rlpx-hello enodeid host port");
+    logger.info("Example: rlpx-hello 7A8FBB31BFF7C48179F8504B047313EBB7446A0233175FFDA6EB4C27AAA5D2AEDCEF4DD9501B4F17B4F16588F0FD037F9B9416B8CACA655BEE3B14B4EF67441A 127.0.0.1 30303");
+    System.exit(1);
+  }
+
   public static void main(String[] args) {
     Security.addProvider(new BouncyCastleProvider());
 
     LoggerProvider loggerProvider = SimpleLogger.withLogLevel(Level.DEBUG).toPrintWriter(
         new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out, UTF_8))));
     Logger errorLogger = loggerProvider.getLogger("err");
+    Logger usageLogger = loggerProvider.getLogger("usage");
+
+    for (String arg : args) {
+      if ("-h".equals(arg) || "--help".equals(arg)) {
+        displayUsage(usageLogger);
+      }
+    }
+    if (args.length != 3) {
+      displayUsage(usageLogger);
+    }
+
+    SECP256K1.PublicKey peerPublicKey = null;
+    InetSocketAddress peerAddress = null;
+    try {
+      peerPublicKey = SECP256K1.PublicKey.fromHexString(args[0]);
+      peerAddress = InetSocketAddress.createUnresolved(args[1], Integer.parseInt(args[2]));
+    } catch(IllegalArgumentException e) {
+      errorLogger.error(e.getMessage(), e);
+      displayUsage(usageLogger);
+    }
 
     Vertx vertx = Vertx.vertx();
     try {
       SECP256K1.KeyPair ourKeyPair = SECP256K1.KeyPair.random();
-
 
       VertxRLPxService service = new VertxRLPxService(
           vertx,
@@ -65,12 +88,12 @@ public class RLPxHello {
               return new SubProtocolIdentifier() {
                 @Override
                 public String name() {
-                  return "exp";
+                  return "eth";
                 }
 
                 @Override
-                public String version() {
-                  return "1.0";
+                public int version() {
+                  return 63;
                 }
               };
             }
@@ -81,7 +104,7 @@ public class RLPxHello {
             }
 
             @Override
-            public int versionRange(String version) {
+            public int versionRange(int version) {
               return 0;
             }
 
@@ -93,15 +116,8 @@ public class RLPxHello {
           "RLPxHello 0.1.0");
       try {
         service.start().join();
-        service.connectTo(
-            SECP256K1.PublicKey.fromHexString(args[0]),
-            InetSocketAddress.createUnresolved(args[1], Integer.parseInt(args[2])));
-        Thread.sleep(5000);
-        WireConnectionRepository repo = service.repository();
-        Logger logger = loggerProvider.getLogger("rlpxhello");
-        for (WireConnection conn : repo.asIterable()) {
-          logger.debug("Connection {}", conn);
-        }
+        AsyncCompletion completion = service.connectTo(peerPublicKey, peerAddress);
+        completion.join();
 
       } catch (InterruptedException e) {
         errorLogger.error(e.getMessage(), e);
