@@ -9,14 +9,14 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Gradle: org.logl:logl-logl:0.3.1" level="project" />
-    <orderEntry type="library" name="Gradle: net.consensys.cava:cava-rlpx:0.6.0-F3FB06-snapshot" level="project" />
+    <orderEntry type="library" name="Gradle: net.consensys.cava:cava-rlpx:0.6.0-530016-snapshot" level="project" />
     <orderEntry type="library" name="Gradle: io.vertx:vertx-core:3.6.2" level="project" />
-    <orderEntry type="library" name="Gradle: net.consensys.cava:cava-crypto:0.6.0-F3FB06-snapshot" level="project" />
-    <orderEntry type="library" name="Gradle: net.consensys.cava:cava-rlp:0.6.0-F3FB06-snapshot" level="project" />
-    <orderEntry type="library" name="Gradle: net.consensys.cava:cava-units:0.6.0-F3FB06-snapshot" level="project" />
-    <orderEntry type="library" name="Gradle: net.consensys.cava:cava-bytes:0.6.0-F3FB06-snapshot" level="project" />
-    <orderEntry type="library" name="Gradle: net.consensys.cava:cava-concurrent:0.6.0-F3FB06-snapshot" level="project" />
-    <orderEntry type="library" name="Gradle: net.consensys.cava:cava-io:0.6.0-F3FB06-snapshot" level="project" />
+    <orderEntry type="library" name="Gradle: net.consensys.cava:cava-crypto:0.6.0-530016-snapshot" level="project" />
+    <orderEntry type="library" name="Gradle: net.consensys.cava:cava-rlp:0.6.0-530016-snapshot" level="project" />
+    <orderEntry type="library" name="Gradle: net.consensys.cava:cava-units:0.6.0-530016-snapshot" level="project" />
+    <orderEntry type="library" name="Gradle: net.consensys.cava:cava-bytes:0.6.0-530016-snapshot" level="project" />
+    <orderEntry type="library" name="Gradle: net.consensys.cava:cava-concurrent:0.6.0-530016-snapshot" level="project" />
+    <orderEntry type="library" name="Gradle: net.consensys.cava:cava-io:0.6.0-530016-snapshot" level="project" />
     <orderEntry type="library" name="Gradle: com.google.guava:guava:27.0.1-jre" level="project" />
     <orderEntry type="library" name="Gradle: org.logl:logl-api:0.3.1" level="project" />
     <orderEntry type="library" name="Gradle: org.xerial.snappy:snappy-java:1.1.7.2" level="project" />
