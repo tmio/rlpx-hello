@@ -40,7 +40,8 @@ public class RLPxHello {
 
   private static void displayUsage(Logger logger) {
     logger.info("rlpx-hello enodeid host port");
-    logger.info("Example: rlpx-hello 7A8FBB31BFF7C48179F8504B047313EBB7446A0233175FFDA6EB4C27AAA5D2AEDCEF4DD9501B4F17B4F16588F0FD037F9B9416B8CACA655BEE3B14B4EF67441A 127.0.0.1 30303");
+    logger.info(
+        "Example: rlpx-hello 7A8FBB31BFF7C48179F8504B047313EBB7446A0233175FFDA6EB4C27AAA5D2AEDCEF4DD9501B4F17B4F16588F0FD037F9B9416B8CACA655BEE3B14B4EF67441A 127.0.0.1 30303");
     System.exit(1);
   }
 
@@ -66,7 +67,7 @@ public class RLPxHello {
     try {
       peerPublicKey = SECP256K1.PublicKey.fromHexString(args[0]);
       peerAddress = InetSocketAddress.createUnresolved(args[1], Integer.parseInt(args[2]));
-    } catch(IllegalArgumentException e) {
+    } catch (IllegalArgumentException e) {
       errorLogger.error(e.getMessage(), e);
       displayUsage(usageLogger);
     }
